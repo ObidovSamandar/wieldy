@@ -1,6 +1,6 @@
 const UserModel = require('../model/UserModel')
-const { generateHashPassword, compareHashPassword } = require('../modules/bcrypt')
-const { signToken } = require('../modules/jwt')
+const { generateHashPassword, compareHashPassword } = require('../store/bcrypt')
+const { signToken } = require('../store/jwt')
 const { UserRegisterValidate,UserLoginalidate } = require('../validation/UserValidation')
 
 
