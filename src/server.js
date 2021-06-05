@@ -4,7 +4,7 @@ const helmet  = require('helmet')
 const morgan = require('morgan')
 const configs = require('./config/configs')
 const app = express()
-const db = require('./store/mongo')
+const db = require('./main/mongo')
 const { glob } = require('glob')
 
 
