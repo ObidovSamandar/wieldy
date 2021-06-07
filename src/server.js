@@ -6,7 +6,7 @@ const configs = require('./config/configs')
 const app = express()
 const db = require('./store/mongo')
 const { glob } = require('glob')
-const proxy = require('express-http-proxy')
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const allowedOrigins = ['http://localhost:3000',
   'https://nodir-wieldy.netlify.app/'];
@@ -25,7 +25,6 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(helmet())
-app.use('/users/login',proxy('https://nodir-wieldy.netlify.app/sign-in'))
 ;(async _=>{
     try {
         await db()
@@ -40,5 +39,7 @@ glob('**/*Route.js', {realpath:true},(err, files)=>{
         app.use(innerFile.path, innerFile.router)
     })
 })
-app.listen(configs.HTTP_PORT, console.log(`SERVER RUNNING ON PORT ${configs.HTTP_PORT}`))
+app.use('/user/login', createProxyMiddleware({ target: 'http://nodir-wieldy.netlify.app', changeOrigin: true }));
+//app.use('/user/login', createProxyMiddleware({ target: 'https://nodir-wieldy.netlify.app/sign-in', changeOrigin: true }));
 
+app.listen(configs.HTTP_PORT, console.log(`SERVER RUNNING ON PORT ${configs.HTTP_PORT}`))
