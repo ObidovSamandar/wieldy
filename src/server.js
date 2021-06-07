@@ -6,7 +6,7 @@ const configs = require('./config/configs')
 const app = express()
 const db = require('./store/mongo')
 const { glob } = require('glob')
-
+const proxy = require('express-http-proxy')
 
 const allowedOrigins = ['http://localhost:3000',
   'https://nodir-wieldy.netlify.app/'];
@@ -25,7 +25,7 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(helmet())
-
+app.use('/users/login',proxy('https://nodir-wieldy.netlify.app/sign-in'))
 ;(async _=>{
     try {
         await db()
