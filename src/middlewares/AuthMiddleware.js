@@ -1,4 +1,4 @@
-const { verifyToken } = require("../modules/jwt")
+const { verifyToken } = require("../store/jwt")
 
 module.exports = async (req, res, next)=>{
     try {
