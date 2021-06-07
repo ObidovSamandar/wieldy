@@ -6,25 +6,14 @@ const configs = require('./config/configs')
 const app = express()
 const db = require('./store/mongo')
 const { glob } = require('glob')
-const { createProxyMiddleware, fixRequestBody } = require('http-proxy-middleware');
 
-const allowedOrigins = ['http://localhost:3000',
-  'https://nodir-wieldy.netlify.app/'];
-app.use(cors({
-  origin: function(origin, callback){
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) === -1){
-      let msg = 'The CORS policy for this site does not ' +
-        'allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  }
-}));
+
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(helmet())
+app.use(cors())
+
 ;(async _=>{
     try {
         await db()
@@ -39,10 +28,6 @@ glob('**/*Route.js', {realpath:true},(err, files)=>{
         app.use(innerFile.path, innerFile.router)
     })
 })
-// app.use('/user/login', createProxyMiddleware({ target: 'http://nodir-wieldy.netlify.app', changeOrigin: true }));
-app.use('/user/login', createProxyMiddleware({ target: 'https://nodir-wieldy.netlify.app/sign-in', changeOrigin: true, selfHandleResponse:true,   onProxyReq: fixRequestBody, router: {
-    'localhost:3000': 'http://localhost:3000',
-    'https://nodir-wieldy.netlify.app/sign-in':'http://143.198.173.194/user/login'
-  },}));
+
 
 app.listen(configs.HTTP_PORT, console.log(`SERVER RUNNING ON PORT ${configs.HTTP_PORT}`))
