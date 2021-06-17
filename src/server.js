@@ -1,14 +1,14 @@
 const express = require('express')
 const cors = require('cors')
 const helmet  = require('helmet')
-const morgan = require('morgan')
+// const morgan = require('morgan')
 const configs = require('./config/configs')
 const app = express()
 const db = require('./store/mongo')
 const { glob } = require('glob')
 
 
-app.use(morgan('dev'))
+// app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(helmet())
