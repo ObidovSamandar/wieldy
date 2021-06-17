@@ -9,6 +9,6 @@ router.get('/', (req,res)=>{
 
 
 module.exports = {
-    path:'/health',
+    path:'/',
     router
 }
