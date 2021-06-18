@@ -22,6 +22,11 @@ app.use(cors())
         console.log(e)        
     }
 })();
+
+
+app.listen(configs.HTTP_PORT || 3000, console.log(`SERVER RUNNING ON PORT ${configs.HTTP_PORT || 3000}`))
+
+
 glob('**/*Route.js', {realpath:true},(err, files)=>{
     files.forEach( (file) =>{
         let innerFile = require(file)
@@ -30,4 +35,3 @@ glob('**/*Route.js', {realpath:true},(err, files)=>{
 })
 
 
-app.listen(configs.HTTP_PORT || 3000, console.log(`SERVER RUNNING ON PORT ${configs.HTTP_PORT || 3000}`))
