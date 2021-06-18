@@ -30,4 +30,4 @@ glob('**/*Route.js', {realpath:true},(err, files)=>{
 })
 
 
-app.listen(configs.HTTP_PORT || 3000, console.log(`SERVER RUNNING ON PORT ${configs.HTTP_PORT}`))
+app.listen(configs.HTTP_PORT || 3000, console.log(`SERVER RUNNING ON PORT ${configs.HTTP_PORT || 3000}`))
