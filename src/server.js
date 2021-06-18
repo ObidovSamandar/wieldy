@@ -23,8 +23,8 @@ app.use(cors())
     }
 })();
 
-
-app.listen(configs.PORT || 3000, console.log(`SERVER RUNNING ON PORT ${configs.HTTP_PORT || 3000}`))
+let PORT = configs.PORT || 3000
+app.listen(PORT, console.log(`SERVER RUNNING ON PORT ${PORT}`))
 
 
 glob('**/*Route.js', {realpath:true},(err, files)=>{
