@@ -4,7 +4,7 @@ require('dotenv').config({path:path.join(__dirname,'../','.env')})
 
 
 const configs = {
-    HTTP_PORT: getConfig('HTTP_PORT',''),
+    PORT: getConfig('PORT',''),
     MongoDB_URI: getConfig('MONGODB_URI',''),
     JWT_SECRET_WORD: getConfig('JWT_SECRET_WORD','')
 }
